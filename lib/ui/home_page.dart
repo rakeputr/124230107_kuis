@@ -47,6 +47,7 @@ class _HomePageState extends State<HomePage> {
         body: SingleChildScrollView(
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          _usernameField(),
           Padding(
             padding: EdgeInsets.all(16),
             child: GridView.builder(
@@ -123,5 +124,26 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ));
+  }
+
+  Widget _usernameField() {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: TextFormField(
+        enabled: true,
+        onChanged: (value) {},
+        decoration: InputDecoration(
+          hintText: 'Search',
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFEF3C3B)),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFEF3C3B)),
+            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+        ),
+      ),
+    );
   }
 }

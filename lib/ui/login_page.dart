@@ -5,16 +5,23 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  void initState() {
-    _passwordVisible = false;
-  }
-
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
   String username = "";
   String password = "";
+
+  final textFieldFocusNode = FocusNode();
+  bool _obscured = false;
+
+  void _toggleObscured() {
+    setState(() {
+      _obscured = !_obscured;
+      if (textFieldFocusNode.hasPrimaryFocus) return;
+      textFieldFocusNode.canRequestFocus = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,12 +76,26 @@ class _LoginPageState extends State<LoginPage> {
         onChanged: (value) {
           password = value;
         },
-        obscureText: true,
+        obscureText: _obscured,
         decoration: InputDecoration(
-          hintText: 'Password',
+          floatingLabelBehavior:
+              FloatingLabelBehavior.never, //Hides label on focus or if filled
+          labelText: "Password",
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFEF3C3B)),
             borderRadius: BorderRadius.all(Radius.circular(8.0)),
+          ),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+            child: GestureDetector(
+              onTap: _toggleObscured,
+              child: Icon(
+                _obscured
+                    ? Icons.visibility_rounded
+                    : Icons.visibility_off_rounded,
+                size: 24,
+              ),
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: Color(0xFFEF3C3B)),

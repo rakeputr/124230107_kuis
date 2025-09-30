@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:template_quiz_mobile_si_b/models/game_model.dart';
+import 'package:template_quiz_mobile_si_b/ui/detail_page.dart';
 import 'package:template_quiz_mobile_si_b/ui/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -65,55 +66,62 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _gameCard(BuildContext context, int index) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Color.fromARGB(255, 253, 210, 209),
-          borderRadius: BorderRadius.circular(20)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-            child: SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: Image.asset(GameModel.gameList[index].gameImg,
-                  fit: BoxFit.cover),
-            ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              children: [
-                Text(
-                  GameModel.gameList[index].gameName,
-                  style: TextStyle(fontWeight: FontWeight.bold),
+    return InkWell(
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return DetailPage(index: index);
+          }));
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              color: Color.fromARGB(255, 253, 210, 209),
+              borderRadius: BorderRadius.circular(20)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20)),
+                child: SizedBox(
+                  height: 250,
+                  width: double.infinity,
+                  child: Image.asset(GameModel.gameList[index].gameImg,
+                      fit: BoxFit.cover),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Text(
-                    "${GameModel.gameList[index].gamePublisher} - ${GameModel.gameList[index].gamePublishDate}"),
-                Text(GameModel.gameList[index].gameDesc),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
                   children: [
-                    Icon(Icons.favorite_outline),
-                    Text(GameModel.gameList[index].totalLike.toString()),
+                    Text(
+                      GameModel.gameList[index].gameName,
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                        "${GameModel.gameList[index].gamePublisher} - ${GameModel.gameList[index].gamePublishDate}"),
+                    Text(GameModel.gameList[index].gameDesc),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.favorite_outline),
+                        Text(GameModel.gameList[index].totalLike.toString()),
+                      ],
+                    )
                   ],
-                )
-              ],
-            ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

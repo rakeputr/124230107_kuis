@@ -5,6 +5,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   State<LoginPage> createState() => _LoginPageState();
 }
 
